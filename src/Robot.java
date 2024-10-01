@@ -46,7 +46,7 @@ class Robot {
 
     public void runProgamm(String programma){
         for (char command:  programma.toCharArray()   ) {
-            Command c = String.valueOf(command);
+//            Command c = String.valueOf(command); из файла считать на вход стринг, к массиву символов а из массива символов к массиву энюмов
             switch (c){
                 case Command.S: stepForward(); break;
                 case Command.L:  turnLeft(); break;
