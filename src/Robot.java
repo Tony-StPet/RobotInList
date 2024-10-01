@@ -1,4 +1,7 @@
+import java.util.Objects;
+
 class Robot {
+    String name;
     private int x = 0, y = 0;   //private - запрет на "телепортацию"
     Direction direction = Direction.NORTH;
 
@@ -8,7 +11,13 @@ class Robot {
     //он итак есть неявно, если нет других конструкторов
 
 
-    public Robot(int x, int y, Direction direction) {
+    @Override
+    public String toString() {
+        return "{"+'\n'+ "x=" + x + ", y=" + y + ", dir=" + direction + "}";
+    }
+
+    public Robot(String name, int x, int y, Direction direction) {
+        this.name = name;
         this.x = x;
         this.y = y;
         this.direction = direction;
@@ -45,14 +54,20 @@ class Robot {
     }
 
     public void runProgamm(String programma){
-        for (char command:  programma.toCharArray()   ) {
+        // Преобразуем строку в массив символов
+        for (char command:  programma.toCharArray()) {
+            // Преобразуем символ в строку и пытаемся получить соответствующее значение enum
+            Command c = Command.valueOf(String.valueOf(command));
 //            Command c = String.valueOf(command); из файла считать на вход стринг, к массиву символов а из массива символов к массиву энюмов
+            // Выполнение соответствующего действие для найденной команды
             switch (c){
                 case Command.S: stepForward(); break;
                 case Command.L:  turnLeft(); break;
                 case Command.R: turnRight(); break;
-                default:
-                    System.out.println("неизвестная команда");
+                    // Если команда не найдена, выводим сообщение об ошибке
+                    default: System.out.println("неизвестная команда");
+
+
             }
         }
     }
@@ -61,13 +76,24 @@ class Robot {
         return this.direction;
     }
 
+    public String getName(){return name;}
+
     public int getX() {
         return x;
     }
 
-    public int getY() {
-        return y;
+    public int getY() { return y; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Robot robot = (Robot) o;
+        return x == robot.x && y == robot.y && direction == robot.direction;
     }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y, direction);
+    }
 }
