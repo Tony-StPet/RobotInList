@@ -1,5 +1,3 @@
-import java.util.Objects;
-
 class Robot {
     String name;
     private int x = 0, y = 0;   //private - запрет на "телепортацию"
@@ -13,8 +11,10 @@ class Robot {
 
     @Override
     public String toString() {
-        return "{"+'\n'+ "x=" + x + ", y=" + y + ", dir=" + direction + "}";
+        return "{ name='" + name + "'" + System.lineSeparator() +
+                "x=" + x + ", y=" + y + ", напр-ие=" + direction + " }" + System.lineSeparator();
     }
+
 
     public Robot(String name, int x, int y, Direction direction) {
         this.name = name;
@@ -84,16 +84,4 @@ class Robot {
 
     public int getY() { return y; }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Robot robot = (Robot) o;
-        return x == robot.x && y == robot.y && direction == robot.direction;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(x, y, direction);
-    }
 }
